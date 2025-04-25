@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: metrics-app
+  namespace: default
+  labels:
+    app: metrics-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: metrics-app
+  template:
+    metadata:
+      labels:
+        app: metrics-app
+    spec:
+      containers:
+        - name: metrics-app
+          image: dommgifer/nodejs-exporter:latest
+          imagePullPolicy: Always
+          env:
+            - name: REDIS_HOST
+              value: redis
+            - name: REDIS_PORT
+              value: "6379"
+          ports:
+            - containerPort: 3000
+          readinessProbe:
+            httpGet:
+              path: /metrics
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /metrics
+              port: 3000
+            initialDelaySeconds: 15
+            periodSeconds: 20

@@ -1,0 +1,15 @@
+{
+    "name": "prometheus-metrics-app",
+    "version": "1.0.0",
+    "description": "A simple Prometheus exporter using prom-client and Express",
+    "main": "index.js",
+    "scripts": {
+      "start": "node index.js"
+    },
+    "dependencies": {
+      "express": "^4.18.2",
+      "prom-client": "^14.1.1",
+      "ioredis": "^5.3.1"
+    }
+}
+  

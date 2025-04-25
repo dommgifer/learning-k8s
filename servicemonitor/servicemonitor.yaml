@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: metrics-app-monitor
+  namespace: default
+  labels:
+    app: metrics-app
+    release: rancher-monitoring  
+spec:
+  selector:
+    matchLabels:
+      app: metrics-app
+  namespaceSelector:
+    matchNames:
+      - default
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 15s
+      scrapeTimeout: 10s

@@ -1,0 +1,16 @@
+# 使用 Node.js LTS 映像
+FROM node:18-alpine
+
+# 建立工作目錄
+WORKDIR /app
+
+# 複製應用程式原始碼與依賴檔案（注意是從 ./app 複製）
+COPY app/package.json ./
+RUN npm install
+COPY app/index.js ./
+
+# 暴露應用埠
+EXPOSE 3000
+
+# 啟動服務
+CMD ["npm", "start"]
